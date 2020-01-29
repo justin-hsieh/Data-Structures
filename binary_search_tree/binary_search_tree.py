@@ -12,16 +12,52 @@ class BinarySearchTree:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        # if value is found, return false to indicate no node inserted
+        if self.value == value:
+            return False
+        # value smaller than node, look left
+        elif value < self.value:
+            # if node exists, continue recursively checking until something is found or inserted
+            if self.left:
+                return self.left.insert(value)
+            # if no node exists, create new one and return true
+            else:
+                self.left = BinarySearchTree(value)
+                return True
+        else:
+            # if node exists, continue recursively checking until something is found or inserted
+            if self.right:
+                return self.right.insert(value)
+            # if no node exists, create new one and return true
+            else:
+                self.right = BinarySearchTree(value)
+                return True
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        # check if target is there, return true if so
+        if self.value == target:
+            return True
+        # if target is less than node value and left node exists, check for value again
+        elif target < self.value and self.left:
+            return self.left.contains(target)
+        # if target is less than node value and right node exists, check for value again
+        elif target > self.value and self.right:
+            return self.right.contains(target)
+        # if target not found, return false
+        else:
+            return False
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        # no right node, return current value
+        if self.right == None:
+            return self.value
+        # if right node, move down and use function again until max is found
+        else:
+            return self.right.get_max()
+
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
